@@ -18,9 +18,35 @@ app.get("/api/test", (req, res) => {
 });
 
 app.get("/api/dashboard", (req, res) => {
+  console.log(req);
   let loggedIn = false;
   if (!loggedIn) {
-    res.send("Unauthenticated");
+    return res.status(401).send({ msg: "unauthicated" });
   }
   res.send("Dashboard Data");
 });
+
+// protected routes
+
+app.get("/api/orders", (req, res) => {});
+
+// -------------------------------------
+// middleware
+// testo function ho jasle req ra res dubai lai access garna paucha ra modify garna sakcha
+// or req ra res check garne lai middleware vanincha ani tesma kam garne
+
+const checkAuthentication = (req, res) => {
+  console.log("check authentication");
+};
+
+app.use(checkAuthentication);
+
+// so  basically checkAuthentication le middle ware ko kam garirako cha ani esle pending ma rakhdincha kura haru kei hamle response lai hit garayena vane
+
+const checkAuthenticationn = (req, res, next) => {
+  console.log("check authentication");
+  next();
+};
+checkAuthenticationn();
+
+// next function next valid api req lai accept garcha
