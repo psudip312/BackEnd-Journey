@@ -28,7 +28,14 @@ app.get("/api/dashboard", (req, res) => {
 
 // protected routes
 
-app.get("/api/orders", (req, res) => {});
+app.use(express.json());
+
+app.post("/api/orders", (req, res) => {
+  console.log("req.body", req.body);
+  res.send("createorder");
+});
+
+// etikai data haru jadaina frontend bata pathako eslai access garna ko lagi global midddlewaare vanaunu parcha
 
 // -------------------------------------
 // middleware
@@ -45,7 +52,6 @@ app.use(checkAuthentication);
 
 const checkAuthenticationn = (req, res, next) => {
   console.log("check authentication");
-  next();
 };
 checkAuthenticationn();
 

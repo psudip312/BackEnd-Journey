@@ -2,9 +2,38 @@ const { log } = require("console");
 const express = require("express");
 const app = express();
 
+const mongoose = require("mongoose");
+mongoose
+  .connect("mongodb://127.0.0.1:27017/databasename")
+  .then(() => console.log("Db Connected"))
+  .catch((err) => {
+    console.log(err);
+  });
+
+app.use(express.json());
+// mathi ko global midddlewaare ho jaasle data pathaucha front end bata
+
+const Schema = mongoose.Schema;
+const TodoSchema = new Schema({
+  title: String,
+});
+
+const Todo = mongoose.model("Todo", TodoSchema);
+
+app.post("/api/todos", async function (req, res) {
+  let todo = await Todo.create({ title: req.body.title });
+  res.send(todo);
+});
+// most important part chai front end bata data oathaucha ani eha databaase connected cah tesle data haru database ma store garnu parcha databse ma store gareko data peri back to font end lai pathauna ko lagi we need to use async await
+
+// now eti matra garera ni hunna body ko responsve pauna ko lagi app.use(express.json())
+
+// aba euta database ko schema banaunu paryo kina becuase after making schema ani matra database or table create huncah
+
 // express vanne euta fucntion ho tyo function le kei kura return garcha so return gareko kura haru euta variable ma rakheko ho
 // ani tyo return chai object hune raicha tyo object chai app ma rakhyeko cha ani tee object lai dot le call gareko tala
 // app vanne object ma .get ra .listen vanne fucntion haru cha
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
