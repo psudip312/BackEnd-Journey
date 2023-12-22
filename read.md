@@ -4,3 +4,9 @@ if data are organized and kept the repeated data in some form then we can distin
 sql ma chai noramlizationn testo haru huncha.. mongo db chai sql database ho jaha json ko format ma data haru bascha
 
 no sql vanekai.. no only sql lite ho
+
+date:12/21
+
+suru ma express import garyo ani db connect garne ani model banaune ani
+
+![Alt text](image.png)
