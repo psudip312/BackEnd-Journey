@@ -53,6 +53,8 @@ app.get("/", () => {
 // });
 // also send fucntion ma string ni patauna milcha also array anda also object too
 // database ma data store garnu vanda agadi schema haru banaunu parcha
+// 5 next things is products haru jasle ni halna pairako cha esko lagi euta authentication ni hunnu paryo
+// so make middleware
 // */
 
 // 1step to make api is you need exxpress
@@ -61,7 +63,29 @@ app.get("/", () => {
 // now api banauna ko lagi express le certain function haru dincha like app ()
 // here tala get vanne fucntion ma agadi ko parameter le path lincha ra second parameter ma req ra res automatically nai aaucha
 
-app.use(express.json()); // global middleware ra yo sabbai api ko routes ko lagi kam garcha
+// middleware a fucntion which has access to req and res
+
+const checkAuthentication = (req, res, next) => {
+  console.log("checking");
+  let loggenIn = true;
+  if (loggenIn) {
+    next();
+
+    // edi loggenIn cha vane next matlab arko function call garne i mean tala ko function call garne
+  } else {
+    res.status(401).send({
+      msg: "unauthenticated ....",
+    });
+  }
+};
+
+// 6 so eti ko flow ko ho vane middleware bich ma basera kam garcha before
+
+app.use(express.json());
+
+// global middleware ra yo sabbai api ko routes ko lagi kam garcha
+
+app.use(checkAuthentication);
 
 app.get("/api/products", async function (req, res) {
   try {
